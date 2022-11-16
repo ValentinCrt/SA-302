@@ -1,9 +1,12 @@
+"_version_ = version = 0.1"
+
 !/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Tue Nov 15 13:17:15 2022
 
 @author: etudiant
+
 """
 
 import sys
