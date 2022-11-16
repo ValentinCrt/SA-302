@@ -30,6 +30,11 @@ class Interface(QMainWindow):
         self.etat = QLabel("off")
         if IP != "":
             self.etat.setText("on")
+        self.commande = QTextEdit()
+        self.commande.setStyleSheet("color: white; background: rgba(56, 4, 40, 0.9)")
+        self.reponse = QTextEdit()
+        self.reponse.setStyleSheet("color: white; background: rgba(56, 4, 40, 0.9)")
+        self.reponse.setReadOnly(True)
 
         
         self.off = QAction(QIcon("off.png"),"OFF",self)
@@ -41,10 +46,9 @@ class Interface(QMainWindow):
         self.grid.addWidget(self.etat, 0, 0)
         self.grid.addWidget(self.IP,0,1)
         self.grid.addWidget(self.envoyer,0,4)
-        self.commande = QTextEdit()
-        self.commande.setStyleSheet("color: white; background: rgba(56, 4, 40, 0.9)")
         self.verticale.addLayout(self.grid)
         self.verticale.addWidget(self.commande)
+        self.verticale.addWidget(self.reponse)
         
         
         self.addToolBar(self.baroutils)
