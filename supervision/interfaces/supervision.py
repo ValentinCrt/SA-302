@@ -35,14 +35,16 @@ class Interface(QMainWindow):
         self.reponse = QTextEdit()
         self.reponse.setStyleSheet("color: white; background: rgba(56, 4, 40, 0.9)")
         self.reponse.setReadOnly(True)
-
+        for i in range(11):
+            vide = self.creervide()
+            self.baroutils.addAction(vide)
         
-        self.off = QAction(QIcon("/home/etudiant/SA-302/supervision/interfaces/images/off.png"),"OFF",self)
+        self.off = QAction(QIcon("/home/etudiant/Téléchargements/SA-302-main/supervision/interfaces/images/off.png"),"OFF",self)
         self.off.setStatusTip("OFF")
         self.baroutils.addAction(self.off)
-        self.baroutils.setIconSize(QSize(50,50))
+        self.baroutils.setIconSize(QSize(39,39))
         self.envoyer = QPushButton("Envoyer")
-        self.envoyer.setFixedSize(100,30)
+        self.envoyer.setFixedSize(110,30)
         self.grid.addWidget(self.etat, 0, 0)
         self.grid.addWidget(self.IP,0,1)
         self.grid.addWidget(self.envoyer,0,4)
@@ -54,7 +56,10 @@ class Interface(QMainWindow):
         self.addToolBar(self.baroutils)
         self.setCentralWidget(self.group72)
         
-
+    def creervide(self):
+        self.vide = QAction(QIcon(""),"",self)
+        return self.vide
+            
 class Supervision(QMainWindow):
     
     
@@ -62,14 +67,14 @@ class Supervision(QMainWindow):
         super().__init__()
         self.setWindowTitle("Supervision")
         self.resize(800,800)
-        self.setWindowIcon(QIcon("/home/etudiant/SA-302/supervision/interfaces/images/logo.png"))
+        self.setWindowIcon(QIcon("/home/etudiant/Téléchargements/SA-302-main/supervision/interfaces/images/logo.png"))
         self.group = QGroupBox()
         self.grid = QGridLayout(self.group)
         
         
         self.l1 = QLabel("PC1 | IP = 192.168.56.1")
         self.b1 = QPushButton()
-        self.b1.setIcon(QIcon("/home/etudiant/SA-302/supervision/interfaces/images/pc.png"))
+        self.b1.setIcon(QIcon("/home/etudiant/Téléchargements/SA-302-main/supervision/interfaces/images/pc.png"))
         self.b1.setIconSize(QSize(110,110))
         self.b1.clicked.connect(self.page)
         self.l1b1 = QVBoxLayout(self.group)
@@ -77,7 +82,7 @@ class Supervision(QMainWindow):
         self.l1b1.addWidget(self.b1)
         self.l2 = QLabel("PC2 | IP = 192.168.56.1")
         self.b2 = QPushButton()
-        self.b2.setIcon(QIcon("/home/etudiant/SA-302/supervision/interfaces/images/pc.png"))
+        self.b2.setIcon(QIcon("/home/etudiant/Téléchargements/SA-302-main/supervision/interfaces/images/pc.png"))
         self.b2.setIconSize(QSize(110,110))
         self.b2.clicked.connect(self.page)
         self.l2b2 = QVBoxLayout(self.group)
@@ -85,7 +90,7 @@ class Supervision(QMainWindow):
         self.l2b2.addWidget(self.b2)
         self.l3 = QLabel("PC3 | IP = 192.168.56.1")
         self.b3 = QPushButton()
-        self.b3.setIcon(QIcon("/home/etudiant/SA-302/supervision/interfaces/images/pc.png"))
+        self.b3.setIcon(QIcon("/home/etudiant/Téléchargements/SA-302-main/supervision/interfaces/images/pc.png"))
         self.b3.setIconSize(QSize(110,110))
         self.b3.clicked.connect(self.page)
         self.l3b3 = QVBoxLayout(self.group)
@@ -93,7 +98,7 @@ class Supervision(QMainWindow):
         self.l3b3.addWidget(self.b3)
         self.l4 = QLabel("PC4 | IP = 192.168.56.1")
         self.b4 = QPushButton()
-        self.b4.setIcon(QIcon("/home/etudiant/SA-302/supervision/interfaces/images/pc.png"))
+        self.b4.setIcon(QIcon("/home/etudiant/Téléchargements/SA-302-main/supervision/interfaces/images/pc.png"))
         self.b4.setIconSize(QSize(110,110))
         self.b4.clicked.connect(self.page)
         self.l4b4 = QVBoxLayout(self.group)
@@ -101,7 +106,7 @@ class Supervision(QMainWindow):
         self.l4b4.addWidget(self.b4)
         self.l5 = QLabel("PC5 | IP = 192.168.56.1")
         self.b5 = QPushButton()
-        self.b5.setIcon(QIcon("/home/etudiant/SA-302/supervision/interfaces/images/pc.png"))
+        self.b5.setIcon(QIcon("/home/etudiant/Téléchargements/SA-302-main/supervision/interfaces/images/pc.png"))
         self.b5.setIconSize(QSize(110,110))
         self.b5.clicked.connect(self.page)
         self.l5b5 = QVBoxLayout(self.group)
@@ -109,7 +114,7 @@ class Supervision(QMainWindow):
         self.l5b5.addWidget(self.b5)
         self.l6 = QLabel("PC6 | IP = 192.168.56.1")
         self.b6 = QPushButton()
-        self.b6.setIcon(QIcon("/home/etudiant/SA-302/supervision/interfaces/images/pc.png"))
+        self.b6.setIcon(QIcon("/home/etudiant/Téléchargements/SA-302-main/supervision/interfaces/images/pc.png"))
         self.b6.setIconSize(QSize(110,110))
         self.b6.clicked.connect(self.page)
         self.l6b6 = QVBoxLayout(self.group)
@@ -285,7 +290,7 @@ class Supervision(QMainWindow):
         self.grid.addLayout(self.l23b23, 5, 2)
         self.grid.addLayout(self.l24b24, 5, 3)
         self.setCentralWidget(self.group)
-    
+        
         
         
         
