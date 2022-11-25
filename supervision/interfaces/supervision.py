@@ -12,7 +12,7 @@ from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtCore import QSize
 
 
-PC = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
+PC = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
 IP = "192.168.1.1"
 
 
@@ -25,14 +25,14 @@ class Interface(QMainWindow):
         self.baroutils = QToolBar()
         self.onglet = QTabWidget()
         self.add_onglet()
-        self.plus_onglet = QAction(QIcon("/home/etudiant/Téléchargements/SA-302-main(1)/SA-302-main/supervision/interfaces/images/plus.png"), "Nouvel Onglet",self)
+        self.plus_onglet = QAction(QIcon("images/plus.png"), "Nouvel Onglet",self)
         self.plus_onglet.setStatusTip("Nouvel Onglet")
         self.plus_onglet.triggered.connect(self.nouvel_onglet)
         self.baroutils.addAction(self.plus_onglet)
         for i in range(10):
             vide = self.creervide()
             self.baroutils.addAction(vide)
-        self.off = QAction(QIcon("/home/etudiant/Téléchargements/SA-302-main(1)/SA-302-main/supervision/interfaces/images/off.png"),"OFF",self)
+        self.off = QAction(QIcon("images/off.png"),"OFF",self)
         self.off.setStatusTip("OFF")
         self.off.triggered.connect(self.eteint)
         self.baroutils.addAction(self.off)
@@ -84,11 +84,11 @@ class Interface(QMainWindow):
 class Supervision(QMainWindow):
     
     
-    def __init__(self,nb_pc = 24):
+    def __init__(self):
         super().__init__()
         self.setWindowTitle("Supervision")
         self.resize(800,800)
-        self.setWindowIcon(QIcon("/home/etudiant/Téléchargements/SA-302-main(1)/SA-302-main/supervision/interfaces/images/logo.png"))
+        self.setWindowIcon(QIcon("images/logo.png"))
         self.group = QGroupBox()
         self.grid = QGridLayout(self.group)
         self.setCentralWidget(self.group)
@@ -103,7 +103,7 @@ class Supervision(QMainWindow):
     def create_bouton(self,titre_label):
         label = QLabel("PC"+titre_label+"   IP : "+IP)
         bouton = QPushButton()
-        bouton.setIcon(QIcon("/home/etudiant/Téléchargements/SA-302-main(1)/SA-302-main/supervision/interfaces/images/pc.png"))
+        bouton.setIcon(QIcon("images/pc.png"))
         bouton.setIconSize(QSize(70,70))
         bouton.clicked.connect(self.page)
         layout_lb = QVBoxLayout()
