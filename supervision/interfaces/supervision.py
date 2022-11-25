@@ -7,8 +7,7 @@ Created on Tue Nov 15 13:17:15 2022
 """
 
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QVBoxLayout, QGroupBox, QWidget, QHBoxLayout
-from PyQt5.QtWidgets import QMenu, QAction, QTextEdit, QMenuBar, QToolBar, QGridLayout, QLineEdit, QMessageBox, QInputDialog
+from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtCore import QSize
 
@@ -23,12 +22,36 @@ class Interface(QMainWindow):
         super().__init__()
         self.setWindowTitle("Terminal")
         self.resize(600,600)
+        self.baroutils = QToolBar()
+        self.onglet = QTabWidget()
+        self.add_onglet()
+        self.plus_onglet = QAction(QIcon("/home/etudiant/Téléchargements/SA-302-main(1)/SA-302-main/supervision/interfaces/images/plus.png"), "Nouvel Onglet",self)
+        self.plus_onglet.setStatusTip("Nouvel Onglet")
+        self.baroutils.addAction(self.plus_onglet)
+        self.plus_onglet.triggered.connect(self.nouvel_onglet)
+        for i in range(10):
+            vide = self.creervide()
+            self.baroutils.addAction(vide)
+        self.off = QAction(QIcon("/home/etudiant/Téléchargements/SA-302-main(1)/SA-302-main/supervision/interfaces/images/off.png"),"OFF",self)
+        self.off.setStatusTip("OFF")
+        self.baroutils.addAction(self.off)
+        self.baroutils.setIconSize(QSize(39,30))
+        self.addToolBar(self.baroutils)
+        self.setCentralWidget(self.onglet)
+        
+        
+    def creervide(self):
+        self.vide = QAction(QIcon(""),"",self)
+        return self.vide
+    
+    def add_onglet(self,widget=None,label="Terminal"):
         self.group72 = QGroupBox()
         self.grid = QGridLayout()
         self.verticale = QVBoxLayout(self.group72)
-        self.baroutils = QToolBar()
+        self.fenetre = QVBoxLayout()
         self.IP = QLabel(IP)
         self.etat = QLabel("off")
+        self.widget = QWidget()
         if IP != "":
             self.etat.setText("on")
         self.commande = QTextEdit()
@@ -36,14 +59,6 @@ class Interface(QMainWindow):
         self.reponse = QTextEdit()
         self.reponse.setStyleSheet("color: white; background: rgba(56, 4, 40, 0.9)")
         self.reponse.setReadOnly(True)
-        for i in range(11):
-            vide = self.creervide()
-            self.baroutils.addAction(vide)
-        
-        self.off = QAction(QIcon("/home/etudiant/Téléchargements/SA-302-main(1)/SA-302-main/supervision/interfaces/images/off.png"),"OFF",self)
-        self.off.setStatusTip("OFF")
-        self.baroutils.addAction(self.off)
-        self.baroutils.setIconSize(QSize(39,39))
         self.envoyer = QPushButton("Envoyer")
         self.envoyer.setFixedSize(110,30)
         self.grid.addWidget(self.etat, 0, 0)
@@ -52,15 +67,14 @@ class Interface(QMainWindow):
         self.verticale.addLayout(self.grid)
         self.verticale.addWidget(self.commande)
         self.verticale.addWidget(self.reponse)
-        
-        
-        self.addToolBar(self.baroutils)
-        self.setCentralWidget(self.group72)
-        
-    def creervide(self):
-        self.vide = QAction(QIcon(""),"",self)
-        return self.vide
-            
+        self.fenetre.addWidget(self.group72)
+        self.widget.setLayout(self.fenetre)
+        i = self.onglet.addTab(self.widget,label)
+        self.onglet.setCurrentIndex(i)
+
+    def nouvel_onglet(self):
+        self.add_onglet()
+    
 class Supervision(QMainWindow):
     
     
@@ -81,7 +95,6 @@ class Supervision(QMainWindow):
                 self.grid.addLayout(layout_lb, i, j)
     
     def create_bouton(self,titre_label):
-        self.newpage = Interface()
         label = QLabel("PC"+titre_label+"   IP : "+IP)
         bouton = QPushButton()
         bouton.setIcon(QIcon("/home/etudiant/Téléchargements/SA-302-main(1)/SA-302-main/supervision/interfaces/images/pc.png"))
