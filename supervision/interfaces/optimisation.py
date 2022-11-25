@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Nov 16 10:33:46 2022
+
 @author: etudiant
 """
 
@@ -15,12 +16,15 @@ from PyQt5.QtCore import QSize
 
 PC = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
 IP = "192.168.1.1"
+#GRILLE = [[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]
+NUM_TERM = ''
 
 class Interface(QMainWindow):
     
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Terminal")
+        print(NUM_TERM)
+        self.setWindowTitle("Terminal_"+NUM_TERM)
         self.resize(600,600)
         self.group72 = QGroupBox()
         self.grid = QGridLayout()
@@ -50,6 +54,7 @@ class Interface(QMainWindow):
         self.verticale.addWidget(self.commande)
         self.verticale.addWidget(self.reponse)
         
+
         
         self.addToolBar(self.baroutils)
         self.setCentralWidget(self.group72)
@@ -64,12 +69,12 @@ class Supervision(QMainWindow):
         self.grid = QGridLayout(self.group)
         self.group.setLayout(self.grid)
         self.setCentralWidget(self.group)
-        self.INTERFACE = 0
+
         Y = 0
+        self.windows = []
         for i in range(6):
             for j in range(4):
                 layout_lb = self.create_bouton(str(PC[Y]))
-                self.INTERFACE+=1
                 Y+=1
                 self.grid.addLayout(layout_lb, i, j)
     
@@ -78,20 +83,17 @@ class Supervision(QMainWindow):
         bouton = QPushButton()
         bouton.setIcon(QIcon("/root/SA-302/supervision/interfaces/images/pc.png"))
         bouton.setIconSize(QSize(70,70))
-        bouton.clicked.connect(self.page,self.INTERFACE)
+        bouton.clicked.connect(self.page)
         layout_lb = QVBoxLayout()
         layout_lb.addWidget(label)
         layout_lb.addWidget(bouton)
         return layout_lb
         
     
-    def page(self,nb_interface:int):
-        if nb_interface == 0:
-            self.new_page = Interface()
-            self.new_page.show()
-        if nb_interface == 1:
-            self.new_page = Interface()
-            self.new_page.show()
+    def page(self):
+        window = Interface()
+        self.windows.append(window)
+        window.show()
 
     
 
@@ -104,3 +106,4 @@ def main():
 
 if __name__== '__main__':
     main()
+    
