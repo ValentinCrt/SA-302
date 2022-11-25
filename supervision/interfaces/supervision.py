@@ -27,13 +27,14 @@ class Interface(QMainWindow):
         self.add_onglet()
         self.plus_onglet = QAction(QIcon("/home/etudiant/Téléchargements/SA-302-main(1)/SA-302-main/supervision/interfaces/images/plus.png"), "Nouvel Onglet",self)
         self.plus_onglet.setStatusTip("Nouvel Onglet")
-        self.baroutils.addAction(self.plus_onglet)
         self.plus_onglet.triggered.connect(self.nouvel_onglet)
+        self.baroutils.addAction(self.plus_onglet)
         for i in range(10):
             vide = self.creervide()
             self.baroutils.addAction(vide)
         self.off = QAction(QIcon("/home/etudiant/Téléchargements/SA-302-main(1)/SA-302-main/supervision/interfaces/images/off.png"),"OFF",self)
         self.off.setStatusTip("OFF")
+        self.off.triggered.connect(self.eteint)
         self.baroutils.addAction(self.off)
         self.baroutils.setIconSize(QSize(39,30))
         self.addToolBar(self.baroutils)
@@ -74,6 +75,11 @@ class Interface(QMainWindow):
 
     def nouvel_onglet(self):
         self.add_onglet()
+        
+    def eteint(self):
+        self.etat.setText("off")
+        self.IP.setText("")
+        self.close()
     
 class Supervision(QMainWindow):
     
