@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+Created on Thu Dec  1 13:24:13 2022
+
+@author: etudiant
+"""
+
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
 Created on Tue Nov 15 13:17:15 2022
 
 @author: etudiant
@@ -43,11 +51,15 @@ class Interface(QMainWindow):
         self.off = QAction(QIcon("images/off.png"),"OFF",self)
         self.off.setStatusTip("OFF")
         self.off.triggered.connect(self.eteint)
+        self.fonglet = QPushButton(self.onglet)
+        self.fonglet.setText("x")
+        self.fonglet.setFixedSize(20,20)
+        self.fonglet.clicked.connect(self.fermer_onglet)
         self.baroutils.addAction(self.off)
         self.baroutils.setIconSize(QSize(39,30))
         self.addToolBar(self.baroutils)
         self.setCentralWidget(self.onglet)
-        
+                self.onglet.setTabButton(self.onglet.Right)
         
     def creervide(self):
         self.vide = QAction(QIcon(""),"",self)
@@ -58,7 +70,7 @@ class Interface(QMainWindow):
             fichier = open(dossier[0]).read()
             self.commande.append(fichier)
 
-    def add_onglet(self,widget=None,label="Terminal   "):
+    def add_onglet(self,widget=None,label="Terminal"):
         self.group72 = QGroupBox()
         self.grid = QGridLayout()
         self.verticale = QVBoxLayout(self.group72)
@@ -66,10 +78,6 @@ class Interface(QMainWindow):
         self.IP = QLabel(IP)
         self.etat = QLabel("off")
         self.widget = QWidget()
-        self.fonglet = QPushButton(self.widget)
-        self.fonglet.setText("x")
-        self.fonglet.setFixedSize(20,20)
-        self.fonglet.clicked.connect(self.fermer_onglet)
         if IP != "":
             self.etat.setText("on")
         self.commande = QTextEdit()
@@ -78,7 +86,7 @@ class Interface(QMainWindow):
         self.reponse.setStyleSheet("color: white; background: rgba(56, 4, 40, 0.9)")
         self.reponse.setReadOnly(True)
         self.envoyer = QPushButton("Envoyer")
-        #self.envoyer.clicked.connect(self.send)
+        self.envoyer.clicked.connect(self.send)
         self.envoyer.setFixedSize(110,30)
         self.grid.addWidget(self.etat, 0, 0)
         self.grid.addWidget(self.IP,0,1)
@@ -93,8 +101,10 @@ class Interface(QMainWindow):
 
         
         
-    #def send(self):
-        
+    def send(self):
+        envoyer = Envoyer()
+        self.windows.append(envoyer)
+        envoyer.show()
         
     
     def eteint(self):
@@ -103,7 +113,7 @@ class Interface(QMainWindow):
         self.close()
         
     def fermer_onglet(self):
-        self.onglet.removeTab(self.onglet.currentIndex())
+        self.onglet.removeTab()
     
 class Supervision(QMainWindow):
     
@@ -147,7 +157,37 @@ class Supervision(QMainWindow):
         self.windows.append(window)
         window.show()
         
+        
+class Envoyer(QMainWindow):
 
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Envoyer")
+        self.resize(400,400)
+        self.setWindowIcon(QIcon("images/envoyer.png"))
+        self.group = QGroupBox()
+        self.grille = QGridLayout(self.group)
+        self.bsend = QPushButton(self.group)
+        self.bsend.setIcon(QIcon("images/envoyer.png"))
+        self.bsend.setIconSize(QSize(30,30))
+        self.bsend.setFixedSize(30,30)
+        self.bsend.move(175,360)
+        Y=0
+        for i in range(6):
+            for j in range(4):
+                check_pc = self.check(str(PC[Y]))
+                Y+=1
+                self.grille.addWidget(check_pc, i, j)
+                print(i)
+        
+        self.setCentralWidget(self.group)
+        
+            
+        
+    def check(self,nom_check):
+        nom = QCheckBox(self)
+        nom.setText("PC"+nom_check)
+        return nom
                 
         
 def main():
