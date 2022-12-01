@@ -9,7 +9,7 @@ import paramiko
 from getpass import getpass
 import time
 
-host = "d11.lab.rt"
+host = "172.20.35.22"
 username = "etudiant"
 password = getpass("entrer le mot de passe de etudiant : ")
 
@@ -20,8 +20,13 @@ session.connect(hostname=host,
                 password=password,
                 port="22")
 
-stdin, stdout, stderr =session.exec_command(input("Entrer une commande : "))
-time.sleep(.5)
-print(stdout.read().decode())
+commande = ''
+
+while commande != "exit" :
+    commande = input("Entrer une commande : ")
+    stdin, stdout, stderr =session.exec_command(commande)
+    print("\n")
+    time.sleep(.5)
+    print(stdout.read().decode())
 
 session.close()
