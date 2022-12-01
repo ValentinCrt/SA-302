@@ -22,16 +22,23 @@ class Interface(QMainWindow):
         super().__init__()
         self.setWindowTitle("Terminal")
         self.resize(600,600)
+        self.menubar = self.menuBar()
         self.baroutils = QToolBar()
         self.onglet = QTabWidget()
         self.add_onglet()
         self.plus_onglet = QAction(QIcon("images/plus.png"), "Nouvel Onglet",self)
         self.plus_onglet.setStatusTip("Nouvel Onglet")
-        self.plus_onglet.triggered.connect(self.nouvel_onglet)
+        self.plus_onglet.triggered.connect(self.add_onglet)
         self.baroutils.addAction(self.plus_onglet)
         for i in range(10):
             vide = self.creervide()
             self.baroutils.addAction(vide)
+            
+        self.fichier = self.menubar.addMenu("Fichier")
+        self.ouvrir = QAction(QIcon("images/ouvrir.png"), "Ouvrir", self)
+        self.ouvrir.setShortcut("Ctrl+O")
+        self.fichier.addAction(self.ouvrir)
+        self.ouvrir.triggered.connect(self.open_event)
         self.off = QAction(QIcon("images/off.png"),"OFF",self)
         self.off.setStatusTip("OFF")
         self.off.triggered.connect(self.eteint)
@@ -45,6 +52,11 @@ class Interface(QMainWindow):
         self.vide = QAction(QIcon(""),"",self)
         return self.vide
     
+    def open_event(self):
+            dossier = QFileDialog.getOpenFileName(self)
+            fichier = open(dossier[0]).read()
+            self.commande.append(fichier)
+
     def add_onglet(self,widget=None,label="Terminal"):
         self.group72 = QGroupBox()
         self.grid = QGridLayout()
@@ -73,8 +85,6 @@ class Interface(QMainWindow):
         i = self.onglet.addTab(self.widget,label)
         self.onglet.setCurrentIndex(i)
 
-    def nouvel_onglet(self):
-        self.add_onglet()
         
     def eteint(self):
         self.etat.setText("off")
