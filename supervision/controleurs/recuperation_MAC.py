@@ -5,7 +5,8 @@ Spyder Editor
 This is a temporary script file.
 """
 import os
-
+cmd = 'nmap 172.20.90.*'
+print(os.system(cmd))
 mon_dico = {}
 liste1 = []
 liste2 = []
