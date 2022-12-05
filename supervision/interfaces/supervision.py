@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Tue Nov 15 13:17:15 2022
-
-@author: etudiant
+.. module::supervision
+   :platform: Unix
+   :synopsis: this module is the interface, connections and controller together
+  
+.. moduleauthor:: Duquerroy Léonce <leonce.duquerroy@etu.univ-poitiers.fr>
+.. moduleauthor:: Etiembre Baptiste <baptiste.etiembre@etu.univ-poitiers.fr>
+.. moduleauthor:: Moreau Mathis <mathis.moreau@etu.univ-poitiers.fr>
 """
 
 import sys
@@ -97,23 +101,27 @@ class Interface(QMainWindow):
         
         
     def send(self):
-        host = "172.20.35.22"
-        username = "etudiant"
-        #password = getpass("entrer le mot de passe de etudiant : ")
-        password = "etudiant"
         
+        """ this fonction initializes an ssh connection, sends a command to the target pc  and displays the result of the command.
+            
+        :returns: None
+        :rtypes: None
+        :raises: NoValidConnectionsError
+        
+        """
+
+        host = "172.20.35.32"
+        username = "etudiant"
+        password = "etudiant"
+
         session = paramiko.SSHClient()
         session.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        session.connect(hostname=host,
-                        username=username,
-                        password=password,
-                        port="22")
+        session.connect(hostname=host, username=username, password=password, port="22")
         
         commande = self.commande.toPlainText()
         stdin, stdout, stderr =session.exec_command(commande)
         time.sleep(.5)
         reponse = ""+username+"@deb11: \n \n"+str(stdout.read().decode())
-        
         self.reponse.append(reponse)
         
         session.close()

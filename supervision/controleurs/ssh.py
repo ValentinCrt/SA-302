@@ -1,17 +1,26 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Nov 22 20:54:53 2022
-
-@author: uplay
+.. module::ssh
+   :platform: Unix
+   :synopsis: this module is a functional controller test. Only works on one pc.
+  
+.. moduleauthor:: Duquerroy Léonce <leonce.duquerroy@etu.univ-poitiers.fr>
 """
 
 import paramiko
-from getpass import getpass
 import time
+
+""" this code initializes an ssh connection, sends a command to the target pc  and displays the result of the command.
+            
+:returns: None
+:rtypes: None
+:raises: NoValidConnectionsError
+
+"""
 
 host = "172.20.35.22"
 username = "etudiant"
-password = getpass("entrer le mot de passe de etudiant : ")
+password = "etudiant"
 
 session = paramiko.SSHClient()
 session.set_missing_host_key_policy(paramiko.AutoAddPolicy())
