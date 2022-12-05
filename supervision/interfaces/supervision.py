@@ -18,6 +18,12 @@ import paramiko
 from getpass import getpass
 import time
 
+sys.path.insert(0, "../connexion/")
+
+import recuperation_MAC_IP
+
+print(recuperation_MAC_IP.MAC)
+
 
 PC = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
 IP = "192.168.1.1"

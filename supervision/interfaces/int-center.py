@@ -19,9 +19,6 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtCore import QSize
 from pyqt_tab_widget import TabWidget
-import paramiko
-import time
-from getpass import getpass
 
 
 
@@ -104,27 +101,9 @@ class Interface(QMainWindow):
         
         
     def send(self):
-        username = "etudiant"
-        #password = getpass("entrer le mot de passe de etudiant : ")
-        password = "etudiant"
-        
-        for i in range:
-            host = ""
-            session = paramiko.SSHClient()
-            session.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            session.connect(hostname=host,
-                            username=username,
-                            password=password,
-                            port="22")
-            
-            commande = self.commande.toPlainText()
-            stdin, stdout, stderr =session.exec_command(commande)
-            time.sleep(.5)
-            reponse = ""+username+"@deb11: \n \n"+str(stdout.read().decode())
-            
-            self.reponse.append(reponse)
-            
-            session.close()
+        envoyer = Envoyer()
+        self.windows.append(envoyer)
+        envoyer.show()
         
     
     def eteint(self):
@@ -188,16 +167,14 @@ class Envoyer(QMainWindow):
         self.group = QGroupBox()
         self.grille = QGridLayout(self.group)
         self.bsend = QPushButton(self.group)
-        self.bsend.setIcon(QIcon("images/envoyer.png"))
-        self.bsend.setIconSize(QSize(30,30))
-        self.bsend.setFixedSize(30,30)
         self.bsend.move(175,360)
+        self.bsend.clicked.connect(self.sends)
         Y=0
         for i in range(6):
             for j in range(4):
-                check_pc = self.check(str(PC[Y]))
+                self.check_pc = self.check(str(PC[Y]))
                 Y+=1
-                self.grille.addWidget(check_pc, i, j)
+                self.grille.addWidget(self.check_pc, i, j)
         
         self.setCentralWidget(self.group)
         
@@ -208,6 +185,12 @@ class Envoyer(QMainWindow):
         nom.setText("PC"+nom_check)
         return nom
                 
+        
+    def sends(self):
+        for i in range(6):
+            for j in range(4):
+                print(self.grille.itemAtPosition(j, i))
+                    
         
 def main():
     application = QApplication(sys.argv)
