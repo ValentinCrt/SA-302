@@ -19,6 +19,9 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtCore import QSize
 from pyqt_tab_widget import TabWidget
+import paramiko
+import time
+from getpass import getpass
 
 
 
@@ -101,9 +104,27 @@ class Interface(QMainWindow):
         
         
     def send(self):
-        envoyer = Envoyer()
-        self.windows.append(envoyer)
-        envoyer.show()
+        username = "etudiant"
+        #password = getpass("entrer le mot de passe de etudiant : ")
+        password = "etudiant"
+        
+        for i in range:
+            host = ""
+            session = paramiko.SSHClient()
+            session.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            session.connect(hostname=host,
+                            username=username,
+                            password=password,
+                            port="22")
+            
+            commande = self.commande.toPlainText()
+            stdin, stdout, stderr =session.exec_command(commande)
+            time.sleep(.5)
+            reponse = ""+username+"@deb11: \n \n"+str(stdout.read().decode())
+            
+            self.reponse.append(reponse)
+            
+            session.close()
         
     
     def eteint(self):
