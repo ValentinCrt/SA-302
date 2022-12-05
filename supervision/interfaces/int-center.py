@@ -18,6 +18,8 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtCore import QSize
+from pyqt_tab_widget import TabWidget
+
 
 
 PC = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
@@ -32,13 +34,14 @@ class Interface(QMainWindow):
         self.resize(600,600)
         self.menubar = self.menuBar()
         self.baroutils = QToolBar()
-        self.onglet = QTabWidget()
-        self.add_onglet()
+        self.onglet = TabWidget()
         self.plus_onglet = QAction(QIcon("images/plus.png"), "Nouvel Onglet",self)
         self.plus_onglet.setStatusTip("Nouvel Onglet")
         self.plus_onglet.triggered.connect(self.add_onglet)
         self.baroutils.addAction(self.plus_onglet)
         self.windows = []
+        self.onglets = []
+        self.add_onglet()
         for i in range(10):
             vide = self.creervide()
             self.baroutils.addAction(vide)
@@ -51,15 +54,11 @@ class Interface(QMainWindow):
         self.off = QAction(QIcon("images/off.png"),"OFF",self)
         self.off.setStatusTip("OFF")
         self.off.triggered.connect(self.eteint)
-        self.fonglet = QPushButton(self.onglet)
-        self.fonglet.setText("x")
-        self.fonglet.setFixedSize(20,20)
-        self.fonglet.clicked.connect(self.fermer_onglet)
         self.baroutils.addAction(self.off)
         self.baroutils.setIconSize(QSize(39,30))
         self.addToolBar(self.baroutils)
         self.setCentralWidget(self.onglet)
-                self.onglet.setTabButton(self.onglet.Right)
+        
         
     def creervide(self):
         self.vide = QAction(QIcon(""),"",self)
@@ -96,9 +95,9 @@ class Interface(QMainWindow):
         self.verticale.addWidget(self.reponse)
         self.fenetre.addWidget(self.group72)
         self.widget.setLayout(self.fenetre)
-        i = self.onglet.addTab(self.widget,label)
-        self.onglet.setCurrentIndex(i)
-
+        self.onglets.append(self.widget)
+        self.onglet.addTab( self.onglets[-1] , 'Page %s' % len(self.onglets) )
+        self.onglet.setCurrentIndex( len(self.onglets)-1 )
         
         
     def send(self):
@@ -178,7 +177,6 @@ class Envoyer(QMainWindow):
                 check_pc = self.check(str(PC[Y]))
                 Y+=1
                 self.grille.addWidget(check_pc, i, j)
-                print(i)
         
         self.setCentralWidget(self.group)
         

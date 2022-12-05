@@ -5,14 +5,19 @@ Spyder Editor
 This is a temporary script file.
 """
 import os
-cmd = 'nmap 172.20.90.*'
-print(os.system(cmd))
+
+
+cmd = 'echo etudiant | sudo -S nmap 172.20.90.* > nmap.txt'
+os.system(cmd)
+
+
+
 mon_dico = {}
-liste1 = []
+
 liste2 = []
 MAC=[]
 IP = []
-g = open('supervison.txt','r')
+g = open('nmap.txt','r')
 for ligne in g:
     for lettre in ligne:
         liste2.append(lettre)
@@ -30,7 +35,5 @@ for i in range(len(liste2)-10):
 
 for i in range(len(MAC)):
     mon_dico[MAC[i]] = IP[i]
-print(liste2)
-print(MAC)
-print(IP)
+
 print(mon_dico)

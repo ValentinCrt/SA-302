@@ -10,6 +10,9 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtCore import QSize
+import paramiko
+from getpass import getpass
+import time
 
 
 PC = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
@@ -78,7 +81,7 @@ class Interface(QMainWindow):
         self.reponse.setStyleSheet("color: white; background: rgba(56, 4, 40, 0.9)")
         self.reponse.setReadOnly(True)
         self.envoyer = QPushButton("Envoyer")
-        #self.envoyer.clicked.connect(self.send)
+        self.envoyer.clicked.connect(self.send)
         self.envoyer.setFixedSize(110,30)
         self.grid.addWidget(self.etat, 0, 0)
         self.grid.addWidget(self.IP,0,1)
@@ -93,8 +96,27 @@ class Interface(QMainWindow):
 
         
         
-    #def send(self):
+    def send(self):
+        host = "172.20.35.22"
+        username = "etudiant"
+        #password = getpass("entrer le mot de passe de etudiant : ")
+        password = "etudiant"
         
+        session = paramiko.SSHClient()
+        session.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        session.connect(hostname=host,
+                        username=username,
+                        password=password,
+                        port="22")
+        
+        commande = self.commande.toPlainText()
+        stdin, stdout, stderr =session.exec_command(commande)
+        time.sleep(.5)
+        reponse = ""+username+"@deb11: \n \n"+str(stdout.read().decode())
+        
+        self.reponse.append(reponse)
+        
+        session.close()
         
     
     def eteint(self):
