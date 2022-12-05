@@ -20,6 +20,10 @@ from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtCore import QSize
 from pyqt_tab_widget import TabWidget
 
+sys.path.insert(0, "../connexion/")
+import recuperation_MAC_IP
+print(recuperation_MAC_IP.mon_dico)
+
 
 
 PC = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
@@ -172,9 +176,8 @@ class Envoyer(QMainWindow):
         Y=0
         for i in range(6):
             for j in range(4):
-                self.check_pc = self.check(str(PC[Y]))
+                self.grille.addWidget(self.check(str(PC[Y])), i, j)
                 Y+=1
-                self.grille.addWidget(self.check_pc, i, j)
         
         self.setCentralWidget(self.group)
         
@@ -189,7 +192,8 @@ class Envoyer(QMainWindow):
     def sends(self):
         for i in range(6):
             for j in range(4):
-                print(self.grille.itemAtPosition(j, i))
+                print(QCheckBox(self.grille.itemAtPosition(j, i).isChecked()))
+
                     
         
 def main():
