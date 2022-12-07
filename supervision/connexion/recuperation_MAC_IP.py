@@ -1,3 +1,26 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Dec  7 14:45:43 2022
+
+@author: etudiant
+"""
+
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+This is a temporary script file.
+"""
+import os
+
+""" 
+This code retrieves all Mac addresses
+and network IP addresses.
+
+:We return 1 list with all Mac addresses, 1 list with all Ip addresses
+and a dictionary with the Ip addresses associated with their Mac address.
+
+:rtype: list, dict
+"""
 #Using the nmap command to scan network hosts
 cmd = 'echo etudiant | sudo -S nmap 172.20.90.* > nmap.txt'
 os.system(cmd)
