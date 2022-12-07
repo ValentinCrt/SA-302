@@ -22,18 +22,28 @@ from pyqt_tab_widget import TabWidget
 
 sys.path.insert(0, "../connexion/")
 import recuperation_MAC_IP
-print(recuperation_MAC_IP.mon_dico)
 
 
+mon_dico = recuperation_MAC_IP.mon_dico
+print(mon_dico)
 
-PC = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
-IP = "192.168.1.1"
+PC = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
+mac = ['B2:25:B1:45:82:F4','A6:D3:E6:0D:EA:D3','26:17:CC:D7:EB:E7','A2:23:18:98:8E:FA',
+       'A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA',
+       'A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA',
+       'A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA',
+       'A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA',
+       'A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA']
+IP = []
 
+for i in range(len(mac)):
+    IP.append(mon_dico[mac[i]])
 
 class Interface(QMainWindow):
     
-    def __init__(self):
+    def __init__(self,ip):
         super().__init__()
+        self.ip = ip
         self.setWindowTitle("Terminal")
         self.resize(600,600)
         self.menubar = self.menuBar()
@@ -78,7 +88,7 @@ class Interface(QMainWindow):
         self.grid = QGridLayout()
         self.verticale = QVBoxLayout(self.group72)
         self.fenetre = QVBoxLayout()
-        self.IP = QLabel(IP)
+        self.IP = QLabel(self.ip)
         self.etat = QLabel("off")
         self.widget = QWidget()
         if IP != "":
@@ -123,6 +133,7 @@ class Supervision(QMainWindow):
     
     def __init__(self):
         super().__init__()
+        self.indice = 0
         self.setWindowTitle("Supervision")
         self.resize(800,800)
         self.setWindowIcon(QIcon("images/logo.png"))
@@ -138,25 +149,22 @@ class Supervision(QMainWindow):
                 self.grid.addLayout(layout_lb, i, j)
     
     def create_bouton(self,titre_label):
-        label = QLabel("PC"+titre_label+"   IP : "+IP)
+        label = QLabel("PC"+titre_label+"   IP : "+IP[self.indice])
         bouton = QPushButton()
         bouton.setIcon(QIcon("images/pc.png"))
         bouton.setIconSize(QSize(70,70))
-        bouton.clicked.connect(self.page)
+        bouton.clicked.connect(self.page(IP[self.indice]))
         layout_lb = QVBoxLayout()
         layout_lb.addWidget(label)
         layout_lb.addWidget(bouton)
+        self.indice+=1
         return layout_lb
-        
-        
-        
-        
         
         self.setCentralWidget(self.group)
         
         
-    def page(self):
-        window = Interface()
+    def page(self,ip):
+        window = Interface(ip)
         self.windows.append(window)
         window.show()
         
@@ -171,6 +179,9 @@ class Envoyer(QMainWindow):
         self.group = QGroupBox()
         self.grille = QGridLayout(self.group)
         self.bsend = QPushButton(self.group)
+        self.bsend.setIcon(QIcon("images/envoyer.png"))
+        self.bsend.setIconSize(QSize(30,30))
+        self.bsend.setFixedSize(40, 40)
         self.bsend.move(175,360)
         self.bsend.clicked.connect(self.sends)
         Y=0
@@ -187,6 +198,7 @@ class Envoyer(QMainWindow):
         for i in range(6):
             for j in range(4):
                 print(self.grille.itemAtPosition(i, j).widget().isChecked())
+                print(Interface().IP)
 
                     
         
