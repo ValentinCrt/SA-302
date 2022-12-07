@@ -26,6 +26,10 @@ print(recuperation_MAC_IP.MAC)
 
 
 PC = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+MAC2 = ['8C:EC:4B:89:90:4F','8C:EC:4B:89:02:F0','8C:ER:4B:88:91:EC','8C:ER:4B:88:90:52','8C:ER:4B:88:90:52','8C:ER:4B:89:01:AC',
+        '8C:ER:4B:88:90:A4','8C:ER:4B:89:7E:A1','8C:ER:4B:88:90:AF','8C:ER:4B:89:7E:6F','8C:ER:4B:89:7E:E3','8C:ER:4B:89:7E:5E',
+        '8C:ER:4B:88:90:5C','8C:ER:4B:88:91:DD','8C:ER:4B:88:92:FA','8C:ER:4B:88:91:D9','8C:ER:4B:88:91:EF','8C:ER:4B:88:93:8C',
+        '8C:ER:4B:88:92:30','8C:ER:4B:88:91:D1','8C:ER:4B:88:92:34','8C:ER:4B:88:91:CF','8C:ER:4B:88:90:19','8C:ER:4B:88:91:F7']
 IP = "192.168.1.1"
 
 
@@ -116,7 +120,7 @@ class Interface(QMainWindow):
         
         """
 
-        host = "172.20.35.32"
+        host = "172.20.35.22"
         username = "etudiant"
         password = "etudiant"
 
