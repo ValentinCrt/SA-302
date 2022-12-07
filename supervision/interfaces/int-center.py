@@ -176,23 +176,17 @@ class Envoyer(QMainWindow):
         Y=0
         for i in range(6):
             for j in range(4):
-                self.grille.addWidget(self.check(str(PC[Y])), i, j)
+                self.grille.addWidget(QCheckBox("PC"+str(PC[Y])), i, j)
                 Y+=1
         
         self.setCentralWidget(self.group)
         
-            
-        
-    def check(self,nom_check):
-        nom = QCheckBox(self)
-        nom.setText("PC"+nom_check)
-        return nom
-                
+
         
     def sends(self):
         for i in range(6):
             for j in range(4):
-                print(QCheckBox(self.grille.itemAtPosition(j, i).isChecked()))
+                print(self.grille.itemAtPosition(i, j).widget().isChecked())
 
                     
         
