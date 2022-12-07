@@ -38,10 +38,11 @@ IP = []
 
 for i in range(len(mac)):
     IP.append(mon_dico[mac[i]])
+print(IP)
 
 class Interface(QMainWindow):
     
-    def __init__(self,ip):
+    def __init__(self, ip):
         super().__init__()
         self.ip = ip
         self.setWindowTitle("Terminal")
@@ -133,7 +134,6 @@ class Supervision(QMainWindow):
     
     def __init__(self):
         super().__init__()
-        self.indice = 0
         self.setWindowTitle("Supervision")
         self.resize(800,800)
         self.setWindowIcon(QIcon("images/logo.png"))
@@ -141,30 +141,33 @@ class Supervision(QMainWindow):
         self.grid = QGridLayout(self.group)
         self.setCentralWidget(self.group)
         self.windows = []
-        Y = 0
+        self.Y = 0
         for i in range(6):
             for j in range(4):
-                layout_lb = self.create_bouton(str(PC[Y]))
-                Y+=1
+                layout_lb = self.create_bouton(str(PC[self.Y]))
+                self.Y+=1
                 self.grid.addLayout(layout_lb, i, j)
+        
     
     def create_bouton(self,titre_label):
-        label = QLabel("PC"+titre_label+"   IP : "+IP[self.indice])
-        bouton = QPushButton()
-        bouton.setIcon(QIcon("images/pc.png"))
-        bouton.setIconSize(QSize(70,70))
-        bouton.clicked.connect(self.page(IP[self.indice]))
-        layout_lb = QVBoxLayout()
-        layout_lb.addWidget(label)
-        layout_lb.addWidget(bouton)
-        self.indice+=1
-        return layout_lb
+        self.label = QLabel("PC"+titre_label+"   IP : "+IP[self.Y])
+        self.bouton = QPushButton()
+        self.bouton.setIcon(QIcon("images/pc.png"))
+        self.bouton.setIconSize(QSize(70,70))
+        self.layout_lb = QVBoxLayout()
+        self.layout_lb.addWidget(label)
+        self.layout_lb.addWidget(bouton)
+        return self.layout_lb
+
         
         self.setCentralWidget(self.group)
         
+        for i in range(6):
+            for j in range(4):
+                QPushButton(self.grid.itemAtPosition(i, j).widget()).clicked()
         
-    def page(self,ip):
-        window = Interface(ip)
+    def page(self):
+        window = Interface(IP[indice])
         self.windows.append(window)
         window.show()
         
