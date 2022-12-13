@@ -89,7 +89,7 @@ class Interface(QMainWindow):
         self.grid = QGridLayout()
         self.verticale = QVBoxLayout(self.group72)
         self.fenetre = QVBoxLayout()
-        self.IP = QLabel(self.ip)
+        self.IP = QLabel(self.ip.text())
         self.etat = QLabel("off")
         self.widget = QWidget()
         if IP != "":
@@ -104,7 +104,7 @@ class Interface(QMainWindow):
         self.envoyer.setFixedSize(110,30)
         self.grid.addWidget(self.etat, 0, 0)
         self.grid.addWidget(self.IP,0,1)
-        self.grid.addWidget(self.envoyer,0,4)
+        self.grid.addWidget(self.envoyer,0,8)
         self.verticale.addLayout(self.grid)
         self.verticale.addWidget(self.commande)
         self.verticale.addWidget(self.reponse)
@@ -141,33 +141,37 @@ class Supervision(QMainWindow):
         self.grid = QGridLayout(self.group)
         self.setCentralWidget(self.group)
         self.windows = []
+        self.create_bouton()
+            
+        
+    
+    def create_bouton(self):
         self.Y = 0
         for i in range(6):
             for j in range(4):
-                layout_lb = self.create_bouton(str(PC[self.Y]))
+                self.label = QLabel("PC"+str(PC[self.Y])+"   IP : "+IP[self.Y])
+                self.bouton = QPushButton()
+                self.bouton.setIcon(QIcon("images/pc.png"))
+                self.bouton.setIconSize(QSize(70,70))
+                self.bouton.clicked.connect(self.page)
+                self.layout_lb = QVBoxLayout()
+                self.layout_lb.addWidget(self.label)
+                self.layout_lb.addWidget(self.bouton)
                 self.Y+=1
-                self.grid.addLayout(layout_lb, i, j)
-        
-    
-    def create_bouton(self,titre_label):
-        self.label = QLabel("PC"+titre_label+"   IP : "+IP[self.Y])
-        self.bouton = QPushButton()
-        self.bouton.setIcon(QIcon("images/pc.png"))
-        self.bouton.setIconSize(QSize(70,70))
-        self.layout_lb = QVBoxLayout()
-        self.layout_lb.addWidget(label)
-        self.layout_lb.addWidget(bouton)
-        return self.layout_lb
+                self.grid.addLayout(self.layout_lb, i, j)
+
 
         
         self.setCentralWidget(self.group)
         
-        for i in range(6):
-            for j in range(4):
-                QPushButton(self.grid.itemAtPosition(i, j).widget()).clicked()
+        
         
     def page(self):
-        window = Interface(IP[indice])
+        for i in range(6):
+            for j in range(4):
+               if self.grid.itemAtPosition(i, j).itemAt(1).widget() == self.bouton.sender():
+                   ip = self.grid.itemAtPosition(i, j).itemAt(0).widget()
+        window = Interface(ip)
         self.windows.append(window)
         window.show()
         
