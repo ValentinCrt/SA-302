@@ -25,20 +25,11 @@ import recuperation_MAC_IP
 
 
 mon_dico = recuperation_MAC_IP.mon_dico
+MAC2 = recuperation_MAC_IP.MAC2
+PC = recuperation_MAC_IP.PC
 print(mon_dico)
 
 PC = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
-mac = ['B2:25:B1:45:82:F4','A6:D3:E6:0D:EA:D3','26:17:CC:D7:EB:E7','A2:23:18:98:8E:FA',
-       'A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA',
-       'A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA',
-       'A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA',
-       'A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA',
-       'A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA','A2:23:18:98:8E:FA']
-IP = []
-
-for i in range(len(mac)):
-    IP.append(mon_dico[mac[i]])
-print(IP)
 
 class Interface(QMainWindow):
     
