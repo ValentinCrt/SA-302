@@ -19,8 +19,8 @@ and a dictionary with the Ip addresses associated with their Mac address.
 :rtype: list, dict
 """
 #Using the nmap command to scan network hosts
-#cmd = 'echo etudiant | sudo -S nmap 192.168.89.* > nmap.txt'
-#os.system(cmd)
+cmd = 'echo etudiant | sudo -S nmap 192.168.89.* > nmap.txt'
+os.system(cmd)
 
 #Variables
 num = ['0','1','2','3','4','5','6','7','8','9']
