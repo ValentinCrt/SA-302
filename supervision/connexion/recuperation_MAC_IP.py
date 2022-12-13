@@ -19,8 +19,8 @@ and a dictionary with the Ip addresses associated with their Mac address.
 :rtype: list, dict
 """
 #Using the nmap command to scan network hosts
-cmd = 'nmap 192.168.89.* > nmap.txt'
-os.system(cmd)
+#cmd = 'nmap 192.168.89.* > nmap.txt'
+#os.system(cmd)
 
 #Variables
 num = ['0','1','2','3','4','5','6','7','8','9']
@@ -63,3 +63,11 @@ for i in range(len(MAC)):
     mon_dico[MAC[i]] = IP[i]
 
 print(mon_dico)
+print(MAC)
+
+IP2 = ["éteint","éteint","éteint","éteint","éteint","éteint",
+      "éteint","éteint","éteint","éteint","éteint","éteint",
+      "éteint","éteint","éteint","éteint","éteint","éteint",
+      "éteint","éteint","éteint","éteint","éteint","éteint"]
+
+
