@@ -8,6 +8,11 @@ Created on Wed Dec  7 14:45:43 2022
 """
 Spyder Editor
 This is a temporary script file.
+.. module::Recup_MAC_IP
+   :platform: Unix
+   :synopsis: This module is a data recovery and processing test. Only works on one pc.
+  
+.. moduleauthor:: Moreau Mathis <mathismoreau@etu.univ-poitiers.fr>
 """
 import os
 
@@ -17,6 +22,7 @@ and network IP addresses.
 :We return 1 list with all Mac addresses, 1 list with all Ip addresses
 and a dictionary with the Ip addresses associated with their Mac address.
 :rtype: list, dict
+:raises: NoValidConnectionsError
 """
 #Using the nmap command to scan network hosts
 #cmd = 'nmap 192.168.89.* > nmap.txt'
