@@ -1,23 +1,17 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-Created on Thu Dec  1 13:24:13 2022
-
-@author: etudiant
-"""
-
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Nov 15 13:17:15 2022
-
-@author: etudiant
+.. module::int-center
+   :platform: Unix
+   :synopsis: this module are interfaces, connections and controller together
+  
+.. moduleauthor:: Duquerroy Léonce <leonce.duquerroy@etu.univ-poitiers.fr>
+.. moduleauthor:: Etiembre Baptiste <baptiste.etiembre@etu.univ-poitiers.fr>
+.. moduleauthor:: Moreau Mathis <mathis.moreau@etu.univ-poitiers.fr>
 """
 
 import sys
-from PyQt5.QtWidgets import *
-from PyQt5.QtWidgets import QLabel, QTabWidget
-from PyQt5.QtGui import QIcon, QFont
+from PyQt5.QtWidgets import QFileDialog, QVBoxLayout, QWidget, QTextEdit, QPushButton, QCheckBox, QApplication
+from PyQt5.QtWidgets import QLabel, QTabWidget, QAction, QMainWindow, QToolBar, QGroupBox, QGridLayout
+from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QSize
 import paramiko
 import time
@@ -79,13 +73,27 @@ class Interface(QMainWindow):
         
         
     def creervide(self):
+        """ This function creates empty buttons for filling
+            
+        :returns: self.vide
+        :rtypes: PyQt5.QtWidgets.QAction
+        :raises: None
+        
+        """
         self.vide = QAction(QIcon(""),"",self)
         return self.vide
 
     def open_event(self):
-            dossier = QFileDialog.getOpenFileName(self)
-            fichier = open(dossier[0]).read()
-            self.commande.append(fichier)
+        """ This function adds a shortcut to write a remote bash script.
+            
+        :returns: None
+        :rtypes: None
+        :raises: FileNotFoundError
+        
+        """
+        dossier = QFileDialog.getOpenFileName(self)
+        fichier = open(dossier[0]).read()
+        self.commande.append("cat "+fichier+"> script.sh")
 
     def add_onglet(self,widget=None,label="Terminal"):
         self.group72 = QGroupBox()
@@ -127,6 +135,13 @@ class Interface(QMainWindow):
         
         
     def send(self):
+        """  
+        
+        :returns: None
+        :rtypes: None
+        :raises: 
+        
+        """
         envoyer = Envoyer(self.commande, self.reponse)
         self.windows.append(envoyer)
         envoyer.show()
@@ -163,6 +178,13 @@ class Interface(QMainWindow):
         self.close()
         
     def fermer_onglet(self):
+        """ Close 
+            
+        :returns: None
+        :rtypes: None
+        :raises: None
+        
+        """
         self.onglet.removeTab()
     
 class Supervision(QMainWindow):
