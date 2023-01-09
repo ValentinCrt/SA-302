@@ -15,8 +15,10 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QSize
 import paramiko
 import time
+sys.path.insert(0, "../connexion/")
+from recuperation_MAC_IP import DICO_IP_ETAT
 
-
+etat = DICO_IP_ETAT
 
 PC = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
 IP = ["192.168.89.19","192.168.89.20","192.168.89.21","192.168.89.22","192.168.89.23","192.168.89.24",
@@ -34,6 +36,7 @@ DOC = {"PC1": "192.168.89.19", "PC2": "192.168.89.20", "PC3": "192.168.89.21", "
 class Interface(QMainWindow):
     
     def __init__(self, ip):
+        
         """ this function create the window to send command lines. 
         It also create the menu to use bash files.
         It create a toolbar to add a new tab and close the window
@@ -55,7 +58,6 @@ class Interface(QMainWindow):
         self.menubar = self.menuBar()
         self.baroutils = QToolBar()
         self.onglet = QTabWidget()
-        #self.onglet = TabWidget() en utilisant pip install pyqt_tab_widget on aurait pu supprimer les onglets
         self.plus_onglet = QAction(QIcon("images/plus.png"), "Nouvel Onglet",self)
         self.plus_onglet.setStatusTip("Nouvel Onglet")
         self.plus_onglet.triggered.connect(self.add_onglet)
@@ -114,7 +116,7 @@ class Interface(QMainWindow):
         
         :returns: None
         :rtypes: None
-        :raises:
+        :raises: 
         
         
         """
@@ -239,8 +241,47 @@ class Supervision(QMainWindow):
         self.setCentralWidget(self.group)
         self.windows = []
         self.create_bouton()
+        
+        self.baroutils1 = QToolBar()
+        self.change = QAction(QIcon("images/dal.png"), "Daltonien", self)
+        self.dechange = QAction(QIcon("images/nondal.png"), "Non-Daltonien", self)
+        self.change.setShortcut("Ctrl+D")
+        self.dechange.setShortcut("Ctrl+N")
+        self.baroutils1.addAction(self.change)
+        self.baroutils1.addAction(self.dechange)
+        self.change.triggered.connect(self.daltonien)
+        self.dechange.triggered.connect(self.nondaltonien)
+        self.addToolBar(self.baroutils1)
             
         
+    def daltonien(self):
+        self.Y = 0
+        for i in range(4):
+            for j in range(6):
+                Y = IP[self.Y]
+                if etat[Y] == 'éteint':
+                    print(etat[Y])
+                    print(i, j)
+                    self.grid.itemAtPosition(i, j).itemAt(1).widget().setStyleSheet("background-color: #9932CC")
+                    self.grid.itemAtPosition(i, j).itemAt(1).widget().setDisabled(True)
+                else:
+                    self.grid.itemAtPosition(i, j).itemAt(1).widget().setStyleSheet("background-color: #FFD700")
+                self.Y+=1
+                
+    def nondaltonien(self):
+        self.Y = 0
+        for i in range(4):
+            for j in range(6):
+                Y = IP[self.Y]
+                if etat[Y] == 'éteint':
+                    print(etat[Y])
+                    print(i, j)
+                    self.grid.itemAtPosition(i, j).itemAt(1).widget().setStyleSheet("background-color: #DC143C")
+                    self.grid.itemAtPosition(i, j).itemAt(1).widget().setDisabled(True)
+                else:
+                    self.grid.itemAtPosition(i, j).itemAt(1).widget().setStyleSheet("background-color: #7CFC00")
+                self.Y+=1
+    
     
     def create_bouton(self):
         """
@@ -250,13 +291,19 @@ class Supervision(QMainWindow):
         :rtypes: None
         :raises:
         
-        
         """
         self.Y = 0
         for i in range(4):
             for j in range(6):
                 self.label = QLabel("PC"+str(PC[self.Y])+"   IP : "+IP[self.Y])
                 self.bouton = QPushButton()
+                Y = IP[self.Y]
+                if etat[Y] == 'éteint':
+                    self.bouton.setStyleSheet("background-color: #DC143C")
+                    self.bouton.setDisabled(True)
+                else:
+                    self.bouton.setStyleSheet("background-color: #7CFC00")
+                    
                 self.bouton.setIcon(QIcon("images/pc.png"))
                 self.bouton.setIconSize(QSize(70,70))
                 self.bouton.clicked.connect(self.page)
@@ -319,8 +366,8 @@ class Envoyer(QMainWindow):
         self.bsend.move(180,400)
         self.bsend.clicked.connect(self.sends)
         Y=0
-        for i in range(6):
-            for j in range(4):
+        for i in range(4):
+            for j in range(6):
                 self.grille.addWidget(QCheckBox("PC"+str(PC[Y])), i, j)
                 Y+=1
         
@@ -337,8 +384,8 @@ class Envoyer(QMainWindow):
         :raises:
         
         """
-        for i in range(6):
-            for j in range(4):
+        for i in range(4):
+            for j in range(6):
                 if self.grille.itemAtPosition(i, j).widget().isChecked():
                     ok = self.grille.itemAtPosition(i, j).widget().text()
                     self.sendus(DOC[ok], ok) #DOC[PC2]
