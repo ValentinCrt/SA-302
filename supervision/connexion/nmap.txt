@@ -1,0 +1,119 @@
+Starting Nmap 7.80 ( https://nmap.org ) at 2023-01-04 14:47 CET
+Nmap scan report for 192.168.89.4
+Host is up (0.00061s latency).
+Not shown: 997 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+6000/tcp open  X11
+
+Nmap scan report for 192.168.89.5
+Host is up (0.00063s latency).
+Not shown: 997 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+6000/tcp open  X11
+
+Nmap scan report for si-OptiPlex-7060 (192.168.89.6)
+Host is up (0.000088s latency).
+Not shown: 997 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+6000/tcp open  X11
+
+Nmap scan report for 192.168.89.12
+Host is up (0.00066s latency).
+Not shown: 997 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+6000/tcp open  X11
+
+Nmap scan report for 192.168.89.23
+Host is up (0.00090s latency).
+Not shown: 998 closed ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+
+Nmap scan report for 192.168.89.24
+Host is up (0.00079s latency).
+Not shown: 997 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+6000/tcp open  X11
+
+Nmap scan report for 192.168.89.33
+Host is up (0.0020s latency).
+Not shown: 994 filtered ports
+PORT    STATE SERVICE
+135/tcp open  msrpc
+139/tcp open  netbios-ssn
+443/tcp open  https
+445/tcp open  microsoft-ds
+902/tcp open  iss-realsecure
+912/tcp open  apex-mesh
+
+Nmap scan report for 192.168.89.34
+Host is up (0.0036s latency).
+Not shown: 993 filtered ports
+PORT     STATE SERVICE
+135/tcp  open  msrpc
+139/tcp  open  netbios-ssn
+443/tcp  open  https
+445/tcp  open  microsoft-ds
+902/tcp  open  iss-realsecure
+912/tcp  open  apex-mesh
+5357/tcp open  wsdapi
+
+Nmap scan report for 192.168.89.35
+Host is up (0.00043s latency).
+Not shown: 998 closed ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+
+Nmap scan report for 192.168.89.36
+Host is up (0.00096s latency).
+Not shown: 998 closed ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+
+Nmap scan report for 192.168.89.37
+Host is up (0.0015s latency).
+Not shown: 994 filtered ports
+PORT    STATE SERVICE
+135/tcp open  msrpc
+139/tcp open  netbios-ssn
+443/tcp open  https
+445/tcp open  microsoft-ds
+902/tcp open  iss-realsecure
+912/tcp open  apex-mesh
+
+Nmap scan report for 192.168.89.38
+Host is up (0.0066s latency).
+Not shown: 994 filtered ports
+PORT    STATE SERVICE
+135/tcp open  msrpc
+139/tcp open  netbios-ssn
+443/tcp open  https
+445/tcp open  microsoft-ds
+902/tcp open  iss-realsecure
+912/tcp open  apex-mesh
+
+Nmap scan report for 192.168.89.40
+Host is up (0.00080s latency).
+Not shown: 994 filtered ports
+PORT    STATE SERVICE
+135/tcp open  msrpc
+139/tcp open  netbios-ssn
+443/tcp open  https
+445/tcp open  microsoft-ds
+902/tcp open  iss-realsecure
+912/tcp open  apex-mesh
+
+Nmap done: 256 IP addresses (13 hosts up) scanned in 10.29 seconds
