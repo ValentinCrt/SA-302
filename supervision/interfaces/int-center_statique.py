@@ -255,6 +255,14 @@ class Supervision(QMainWindow):
             
         
     def daltonien(self):
+        """
+        This function changes the color for color blind people.
+        
+        :returns: None
+        :rtypes: None
+        :raises: None
+        
+        """
         self.Y = 0
         for i in range(4):
             for j in range(6):
@@ -269,13 +277,19 @@ class Supervision(QMainWindow):
                 self.Y+=1
                 
     def nondaltonien(self):
+        """
+        This function put normal colors.
+        
+        :returns: None
+        :rtypes: None
+        :raises: None
+        
+        """
         self.Y = 0
         for i in range(4):
             for j in range(6):
                 Y = IP[self.Y]
                 if etat[Y] == 'éteint':
-                    print(etat[Y])
-                    print(i, j)
                     self.grid.itemAtPosition(i, j).itemAt(1).widget().setStyleSheet("background-color: #DC143C")
                     self.grid.itemAtPosition(i, j).itemAt(1).widget().setDisabled(True)
                 else:
