@@ -34,12 +34,21 @@ DOC = {"PC1": "192.168.89.19", "PC2": "192.168.89.20", "PC3": "192.168.89.21", "
 class Interface(QMainWindow):
     
     def __init__(self, ip):
+        """ this function create the window to send command lines. 
+        It also create the menu to use bash files.
+        It create a toolbar to add a new tab and close the window
+        
+        :returns: None
+        :rtypes: None
+        :raises:
+        
+        """
+        
+        
         super().__init__()
         self.text = ip
         separe = self.text.split(" ")
         ip = separe[5]
-        print(separe)
-        print(ip)
         self.ip = ip
         self.setWindowTitle("Terminal")
         self.resize(600,600)
@@ -96,6 +105,19 @@ class Interface(QMainWindow):
         self.commande.append("cat "+fichier+"> script.sh")
 
     def add_onglet(self,widget=None,label="Terminal"):
+        """
+        This function create a block of text to write commande lines and a block of text to retrieve the response from 
+        the send command lines.
+        It also show the pc status and IP address.
+        It create two buttons, one to send to the pc select and the other to several pc.
+        
+        
+        :returns: None
+        :rtypes: None
+        :raises:
+        
+        
+        """
         self.group72 = QGroupBox()
         self.grid = QGridLayout()
         self.verticale = QVBoxLayout(self.group72)
@@ -173,6 +195,15 @@ class Interface(QMainWindow):
         session.close()
     
     def eteint(self):
+        """
+        This function change the pc status and close the window.
+        
+        :returns: None
+        :rtypes: None
+        :raises:
+        
+        
+        """
         self.etat.setText("off")
         self.IP.setText("")
         self.close()
@@ -191,6 +222,14 @@ class Supervision(QMainWindow):
     
     
     def __init__(self):
+        """
+        This function create the window to supervised 24 pc.
+        
+        :returns: None
+        :rtypes: None
+        :raises:
+        
+        """
         super().__init__()
         self.setWindowTitle("Supervision")
         self.resize(800,800)
@@ -204,6 +243,15 @@ class Supervision(QMainWindow):
         
     
     def create_bouton(self):
+        """
+        This function create buttons for all pc. It show the name and IP adress of the pc.
+        
+        :returns: None
+        :rtypes: None
+        :raises:
+        
+        
+        """
         self.Y = 0
         for i in range(4):
             for j in range(6):
@@ -225,6 +273,14 @@ class Supervision(QMainWindow):
         
 
     def page(self):
+        """
+        This function allows you to open the interface to write command lines to the pc selected or several pc.
+        
+        :returns: None
+        :rtypes: None
+        :raises:
+        
+        """
         for i in range(4):
             for j in range(6):
                 if self.grid.itemAtPosition(i, j).itemAt(1).widget() == self.bouton.sender():
@@ -238,6 +294,16 @@ class Supervision(QMainWindow):
 class Envoyer(QMainWindow):
 
     def __init__(self, commande, reponse):
+        """
+        This function create a window to select the pc that will receive the command lines.
+        It create a button to send the command lines once the selection of pc is finished.
+        
+        :returns: None
+        :rtypes: None
+        :raises:
+        
+        
+        """
         super().__init__()
         self.commande = commande
         self.reponse = reponse
@@ -263,6 +329,14 @@ class Envoyer(QMainWindow):
 
         
     def sends(self):
+        """
+        This function allows you to retrive the name of the pc selected to send the command lines.
+        
+        :returns: None
+        :rtypes: None
+        :raises:
+        
+        """
         for i in range(6):
             for j in range(4):
                 if self.grille.itemAtPosition(i, j).widget().isChecked():
