@@ -37,6 +37,8 @@ class Interface(QMainWindow):
     
     def __init__(self, ip):
         
+        assert isinstance(ip, str), "l'ip doit être une chaîne de caractère"
+        
         """ this function create the window to send command lines. 
         It also create the menu to use bash files.
         It create a toolbar to add a new tab and close the window
@@ -171,6 +173,8 @@ class Interface(QMainWindow):
         envoyer.show()
         
     def sendu(self, host: str):
+        
+        assert isinstance(host, str), "host doit être une chaîne de caractère"
         
         """ this fonction initializes an ssh connection, sends a command to the target pc  and displays the result of the command.
             
@@ -355,6 +359,7 @@ class Supervision(QMainWindow):
 class Envoyer(QMainWindow):
 
     def __init__(self, commande, reponse):
+        
         """
         This function create a window to select the pc that will receive the command lines.
         It create a button to send the command lines once the selection of pc is finished.
@@ -407,29 +412,32 @@ class Envoyer(QMainWindow):
                         
                 
     def sendus(self, ip: str, pc_name: str):
+        
+        assert isinstance(ip, str), "l'ip doit être une chaîne de caractère"
+        assert isinstance(pc_name, str), "pc_name doit être une chaîne de caractère"
             
-            """ this fonction initializes an ssh connection, sends a command to the target pc  and displays the result of the command.
-                
-            :returns: None
-            :rtypes: None
-            :raises: NoValidConnectionsError
+        """ this fonction initializes an ssh connection, sends a command to the target pc  and displays the result of the command.
             
-            """
-    
-            username = "etudiant"
-            password = "etudiant"
-    
-            session = paramiko.SSHClient()
-            session.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            session.connect(hostname=ip, username=username, password=password, port="22")
-            
-            commande = self.commande.toPlainText()
-            stdin, stdout, stderr =session.exec_command(commande)
-            time.sleep(.5)
-            reponse = ""+username+"@deb11"+pc_name+": \n \n"+str(stdout.read().decode())
-            self.reponse.append(reponse)
-            
-            session.close()
+        :returns: None
+        :rtypes: None
+        :raises: NoValidConnectionsError
+        
+        """
+
+        username = "etudiant"
+        password = "etudiant"
+
+        session = paramiko.SSHClient()
+        session.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        session.connect(hostname=ip, username=username, password=password, port="22")
+        
+        commande = self.commande.toPlainText()
+        stdin, stdout, stderr =session.exec_command(commande)
+        time.sleep(.5)
+        reponse = ""+username+"@deb11"+pc_name+": \n \n"+str(stdout.read().decode())
+        self.reponse.append(reponse)
+        
+        session.close()
                     
 
 def main():
