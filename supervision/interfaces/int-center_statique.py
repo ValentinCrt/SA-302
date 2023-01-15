@@ -20,6 +20,9 @@ from recuperation_MAC_IP import DICO_IP_ETAT
 
 etat = DICO_IP_ETAT
 
+color_a = ""
+color_e = "" 
+
 PC = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
 IP = ["192.168.89.19","192.168.89.20","192.168.89.21","192.168.89.22","192.168.89.23","192.168.89.24",
       "192.168.89.13","192.168.89.14","192.168.89.15","192.168.89.16","192.168.89.17","192.168.89.18",
@@ -32,6 +35,7 @@ DOC = {"PC1": "192.168.89.19", "PC2": "192.168.89.20", "PC3": "192.168.89.21", "
        "PC13": "192.168.89.7", "PC14": "192.168.89.8", "PC15": "192.168.89.9", "PC16": "192.168.89.10",
        "PC17": "192.168.89.11", "PC18": "192.168.89.12", "PC19": "192.168.89.1", "PC20": "192.168.89.2",
        "PC21": "192.168.89.3", "PC22": "192.168.89.4", "PC23": "192.168.89.5", "PC24": "192.168.89.6",}
+
 
 class Interface(QMainWindow):
     
@@ -86,6 +90,7 @@ class Interface(QMainWindow):
         
         
     def creervide(self):
+        
         """ This function creates empty buttons for filling
             
         :returns: self.vide
@@ -268,16 +273,16 @@ class Supervision(QMainWindow):
         
         """
         self.Y = 0
+        color_a = "#FFD700"
+        color_e = "#9932CC"
         for i in range(4):
             for j in range(6):
                 Y = IP[self.Y]
                 if etat[Y] == 'éteint':
-                    print(etat[Y])
-                    print(i, j)
-                    self.grid.itemAtPosition(i, j).itemAt(1).widget().setStyleSheet("background-color: #9932CC")
+                    self.grid.itemAtPosition(i, j).itemAt(1).widget().setStyleSheet("background-color: "+color_e+"")
                     self.grid.itemAtPosition(i, j).itemAt(1).widget().setDisabled(True)
                 else:
-                    self.grid.itemAtPosition(i, j).itemAt(1).widget().setStyleSheet("background-color: #FFD700")
+                    self.grid.itemAtPosition(i, j).itemAt(1).widget().setStyleSheet("background-color: "+color_a+"")
                 self.Y+=1
                 
     def nondaltonien(self):
@@ -290,14 +295,16 @@ class Supervision(QMainWindow):
         
         """
         self.Y = 0
+        color_a = "#7CFC00"
+        color_e = "#DC143C"
         for i in range(4):
             for j in range(6):
                 Y = IP[self.Y]
                 if etat[Y] == 'éteint':
-                    self.grid.itemAtPosition(i, j).itemAt(1).widget().setStyleSheet("background-color: #DC143C")
+                    self.grid.itemAtPosition(i, j).itemAt(1).widget().setStyleSheet("background-color: "+color_e+"")
                     self.grid.itemAtPosition(i, j).itemAt(1).widget().setDisabled(True)
                 else:
-                    self.grid.itemAtPosition(i, j).itemAt(1).widget().setStyleSheet("background-color: #7CFC00")
+                    self.grid.itemAtPosition(i, j).itemAt(1).widget().setStyleSheet("background-color: "+color_a+"")
                 self.Y+=1
     
     
@@ -311,16 +318,18 @@ class Supervision(QMainWindow):
         
         """
         self.Y = 0
+        color_a = "#7CFC00"
+        color_e = "#DC143C"
         for i in range(4):
             for j in range(6):
                 self.label = QLabel("PC"+str(PC[self.Y])+"   IP : "+IP[self.Y])
                 self.bouton = QPushButton()
                 Y = IP[self.Y]
                 if etat[Y] == 'éteint':
-                    self.bouton.setStyleSheet("background-color: #DC143C")
+                    self.bouton.setStyleSheet("background-color: "+color_e+"")
                     self.bouton.setDisabled(True)
                 else:
-                    self.bouton.setStyleSheet("background-color: #7CFC00")
+                    self.bouton.setStyleSheet("background-color: "+color_a+"")
                     
                 self.bouton.setIcon(QIcon("images/pc.png"))
                 self.bouton.setIconSize(QSize(70,70))
