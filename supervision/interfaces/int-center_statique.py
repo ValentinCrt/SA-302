@@ -278,7 +278,7 @@ class Supervision(QMainWindow):
         for i in range(4):
             for j in range(6):
                 Y = IP[self.Y]
-                if etat[Y] == 'éteint':
+                if etat[Y] == False:
                     self.grid.itemAtPosition(i, j).itemAt(1).widget().setStyleSheet("background-color: "+color_e+"")
                     self.grid.itemAtPosition(i, j).itemAt(1).widget().setDisabled(True)
                 else:
@@ -300,7 +300,7 @@ class Supervision(QMainWindow):
         for i in range(4):
             for j in range(6):
                 Y = IP[self.Y]
-                if etat[Y] == 'éteint':
+                if etat[Y] == False:
                     self.grid.itemAtPosition(i, j).itemAt(1).widget().setStyleSheet("background-color: "+color_e+"")
                     self.grid.itemAtPosition(i, j).itemAt(1).widget().setDisabled(True)
                 else:
@@ -325,7 +325,7 @@ class Supervision(QMainWindow):
                 self.label = QLabel("PC"+str(PC[self.Y])+"   IP : "+IP[self.Y])
                 self.bouton = QPushButton()
                 Y = IP[self.Y]
-                if etat[Y] == 'éteint':
+                if etat[Y] == False:
                     self.bouton.setStyleSheet("background-color: "+color_e+"")
                     self.bouton.setDisabled(True)
                 else:
